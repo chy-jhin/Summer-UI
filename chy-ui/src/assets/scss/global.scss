@@ -1,0 +1,141 @@
+// 全局基本色
+$color: #07706b;
+
+//滚动条样式
+::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+  }
+  ::-webkit-scrollbar-track-piece {
+	background-color: transparent; //滚动槽
+	-webkit-border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:vertical {
+	height: 4px;
+	background-color: #ddd;
+	-webkit-border-radius: 6px;
+  }
+  //滚动条鼠标移上去的样式
+  ::-webkit-scrollbar-thumb:vertical:hover,::-webkit-scrollbar-thumb:horizontal:hover
+  {
+	background-color: #bbb;
+	cursor: pointer;
+  }
+
+// 样式重置
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	outline: none;
+	list-style: none;
+}
+
+// text-align
+@each $var in (left, center, right) {
+	.text-#{$var} {
+		text-align: $var;
+	}
+}
+
+// text-hidden
+.text-hidden {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.text-hidden2 {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	white-space: normal;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.text-del {
+	text-decoration: line-through;
+}
+
+// display-flex
+.d-flex {
+	display: flex;
+	align-items: center;
+}
+
+.flex-column {
+	flex-direction: column;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.flex-1 {
+	flex: 1;
+}
+
+$flex-jc:(fs:flex-start,
+	center:center,
+	fe:flex-end,
+	sb:space-between,
+	sa:space-around);
+$flex-ai:(fs:flex-start,
+	center:center,
+	fe:flex-end,
+);
+
+@each $key,$val in $flex-jc {
+	.jc-#{$key} {
+		justify-content: $val;
+	}
+}
+
+@each $key,$val in $flex-ai {
+	.ai-#{$key} {
+		align-items: $val;
+	}
+}
+
+//spacing
+$spacing-types:(m:margin, p:padding);
+$spacing-directions:(t:top, d:bottom, l:left, r:right);
+$spacing-base-size:10px;
+$spacing-sizes:(1:0.5, 2:1, 3:1.5, 4:2, 5:2.5, 6:3);
+
+
+
+@each $key1,
+$type in $spacing-types {
+
+	// .m-1 margin:5px
+	@each $key3,$size in $spacing-sizes {
+		.#{$key1}-#{$key3} {
+			#{$type}: $size * $spacing-base-size;
+		}
+	}
+
+	// .mx-1 margin:0px 5px;
+	@each $key3,$size in $spacing-sizes {
+		.#{$key1}x-#{$key3} {
+			#{$type}-left: $size * $spacing-base-size;
+			#{$type}-right: $size * $spacing-base-size;
+		}
+
+		.#{$key1}y-#{$key3} {
+			#{$type}-top: $size * $spacing-base-size;
+			#{$type}-bottom: $size * $spacing-base-size;
+		}
+	}
+
+	// mt-1 margin-top:5px;
+	@each $key2,$dir in $spacing-directions {
+		@each $key3,$size in $spacing-sizes {
+			.#{$key1}#{$key2}-#{$key3} {
+				#{$type}-#{$dir}: $size * $spacing-base-size;
+			}
+		}
+	}
+}
